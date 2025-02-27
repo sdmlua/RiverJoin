@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 # Framework for Spatially Joining OWP HAND-FIM Hydrofabric (HF) Flowlines with SWORD Flowlines 
 <hr style="border: 1px solid black; margin: 0;">  
 
@@ -11,7 +6,7 @@ output:
 
 | | |
 | --- | --- |
-| <a href="https://sdml.ua.edu"><img src="https://sdml.ua.edu/wp-content/uploads/2023/01/SDML_logo_Sq_grey.png" alt="SDML Logo" width="400"></a> | The recently developed global ICESat-2 River Surface Slope (IRIS) dataset utilizes the Surface Water and Ocean Topography (SWOT) River Database (SWORD) flowlines to carry its data. **RiverJoin** was originally developed to align the reach flowlines between the NOAA OWP HAND FIM Hydrofabric (FIM HF) and the ICESat-2 River Surface Slope (IRIS) dataset, aiming to improve river slope data in FIM HF. To achieve this, **RiverJoin** performs a spatial join that addresses differences in flowline sources and integrates IRIS data into FIM HF. It can also spatially join any two linear river features from different sources, provided that there are fields indicating river connectivity (e.g., a unique reach identifier and its corresponding downstream reach), with modifications of a few fields to adapt to specific cases. This is developed under the Surface Dynamics Modeling Lab (SDML) as part of a project funded by the Cooperative Institute for Research to Operations in Hydrology (CIROH). |
+| <a href="https://sdml.ua.edu"><img src="https://sdml.ua.edu/wp-content/uploads/2023/01/SDML_logo_Sq_grey.png" alt="SDML Logo" width="1000"></a> | The recently developed global ICESat-2 River Surface Slope (IRIS) dataset utilizes the Surface Water and Ocean Topography (SWOT) River Database (SWORD) flowlines to carry its data. **RiverJoin** was originally developed to align the reach flowlines between the NOAA OWP HAND FIM Hydrofabric (FIM HF) and the ICESat-2 River Surface Slope (IRIS) dataset, aiming to improve river slope data in FIM HF. To achieve this, **RiverJoin** performs a spatial join that addresses differences in flowline sources and integrates IRIS data into FIM HF. It can also spatially join any two linear river features from different sources, provided that there are fields indicating river connectivity (e.g., a unique reach identifier and its corresponding downstream reach), with modifications of a few fields to adapt to specific cases. This is developed under the Surface Dynamics Modeling Lab (SDML) as part of a project funded by the Cooperative Institute for Research to Operations in Hydrology (CIROH). |
 
 
 ### **Background**
