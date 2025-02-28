@@ -31,7 +31,7 @@ The major steps in this framework for achieving the spatial join are shown in Fi
 
 **Step 5**: Perform a spatial join to transfer data from IRIS (which uses SWORD flowlines) to the extracted FIM HF flowlines (Fig. 1e)
 
-<img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="600" style="border: 1px solid black; padding: 1px;">
+<img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="650" style="border: 1px solid black; padding: 1px;">
 
 <em>Fig. 1. Flowchart of identifying and spatially joining FIM HF flowlines with corresponding SWORD flowlines. Middle-column sub-figures enlarge the dashed-line boxed areas in the third column.</em>
 ### **Tool Usage**
