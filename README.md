@@ -1,4 +1,4 @@
-# Framework for Spatially Joining OWP HAND-FIM Hydrofabric (HF) Flowlines with SWORD Flowlines 
+# Framework for Spatially Joining NOAA OWP HAND-FIM Hydrofabric Flowlines with SWORD Flowlines 
 <hr style="border: 1px solid black; margin: 0;">  
 
 ### **River Flowlines Spatial Join (RiverJoin)**
@@ -31,7 +31,7 @@ Step 4: Combine all the extracted flowlines into a single file (Fig. 1d)
 
 Step 5: Perform a spatial join to transfer data from IRIS (which uses SWORD flowlines) to the extracted FIM HF flowlines (Fig. 1e)
 
-<img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="800" style="border: 1px solid black; padding: 1px;">
+<img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="600" style="border: 1px solid black; padding: 1px;">
 
 <em>Fig. 1. Flowchart of identifying and spatially joining FIM HF flowlines with corresponding SWORD flowlines. Middle-column sub-figures enlarge the dashed-line boxed areas in the third column.</em>
 ### **Tool Usage**
@@ -43,7 +43,7 @@ The most essential modifications required from users are in the first and last c
 
 Overall, all necessary modifications have been clearly indicated with [Replace/Re-define...].
 
-We have also provided example data in the ExampleData folder. Users only need to specify the paths to the example data on their computer in the JN file and run it to obtain the results shown in Fig. 1.
+We have also provided example data [here](https://drive.google.com/drive/folders/1Grnoz6cY6uj9FFez9bLrr0Qk9t2gn0xO?usp=sharing). After downloading the data, users only need to specify the paths to the example data on their computer in the JN file and run it to obtain the results shown in Fig. 1.
 
 ### **Acknowledgements**
 <hr style="border: 1px solid black; margin: 0;">  
@@ -59,4 +59,4 @@ We have also provided example data in the ExampleData folder. Users only need to
 
 <a href="https://geography.ua.edu/people/sagy-cohen/" target="_blank">Dr. Sagy Cohen</a>
  (sagy.cohen@ua.edu),
-Dr. Yixian Chen (ychen223@ua.edu)
+Dr. Yixian Chen (ychen223@ua.edu), Supath Dhital (sdhital@crimson.ua.edu)

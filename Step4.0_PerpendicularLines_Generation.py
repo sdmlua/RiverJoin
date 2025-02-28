@@ -46,7 +46,7 @@ def generate_perpendicular_line(node, previous_node, length):
 
 
 ## Step 2: Specify the SWORD nodes path
-sword_nodes_gdf = gpd.read_file(r".../na_sword_nodes_v16.gpkg", layer = "nodes")
+sword_nodes_gdf = gpd.read_file(r"path to your node file stored in a gdb or gpkg", layer = "name of node file")
 
 
 
