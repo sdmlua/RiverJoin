@@ -20,16 +20,16 @@ Additionally, **RiverJoin** is a flexible to spatially join any two river flowli
 <hr style="border: 1px solid black; margin: 0;">  
 
 The major steps in this framework for achieving the spatial join are shown in Fig. 1.
-    
-    Step 1: First extract FIM HF flowlines based on the SWORD flowline buffer (Fig. 1a)
 
-    Step 2: Trace downstream based on connectivity to get the initially unextracted FIM HF flowlines (Fig. 1b)
+Step 1: First extract FIM HF flowlines based on the SWORD flowline buffer (Fig. 1a)
 
-    Step 3: Extract any remaining unextracted flowlines (most are likely the most upstream ones) using short lines along and perpendicular to the SWORD flowlines (Fig. 1c)
+Step 2: Trace downstream based on connectivity to get the initially unextracted FIM HF flowlines (Fig. 1b)
 
-    Step 4: Combine all the extracted flowlines into a single file (Fig. 1d)
+Step 3: Extract any remaining unextracted flowlines (most are likely the most upstream ones) using short lines along and perpendicular to the SWORD flowlines (Fig. 1c)
 
-    Step 5: Perform a spatial join to transfer data from IRIS (which uses SWORD flowlines) to the extracted FIM HF flowlines (Fig. 1e)
+Step 4: Combine all the extracted flowlines into a single file (Fig. 1d)
+
+Step 5: Perform a spatial join to transfer data from IRIS (which uses SWORD flowlines) to the extracted FIM HF flowlines (Fig. 1e)
 
 <img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="800" style="border: 1px solid black; padding: 1px;">
 
