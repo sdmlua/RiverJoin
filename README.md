@@ -14,7 +14,7 @@
 
 The NOAA OWP operational Flood Inundation Mapping (FIM) forecasting framework uses the NHDPlusHR DEM to calculate slope as Manning’s equation parameter for compiling the Synthetic Rating Curves (SRC). The SRCs translate the National Water Model streamflow forecasts into stage and inundation extent at river reach scale nationwide using the Height Above Nearest Drainage approach (referred to as NOAA OWP HAND-FIM) to warn communities of potential floods. River slope is asserted to be a major source of uncertainty there. The recently developed global IRIS dataset, known for its accuracy, holds potential for improvements for this. To leverage this potential, we developed **RiverJoin**, a spatial joining approach that aligns the reaches between FIM HF and IRIS, addressing differences in reach flowline sources. This resulted in the integration of IRIS river slopes into the spatially corresponding FIM HF main-stream reaches.
 
-Additionally, **RiverJoin** is a flexible to spatially join any two river flowline datasets, provided they include connectivity fields. This makes it a valuable tool for integrating and harmonizing river datasets from multiple sources.
+Additionally, **RiverJoin** is flexible to spatially join any two river flowline datasets, provided either includes connectivity fields, i.e., the current flowline identifier and the downstream identifier. This makes it a valuable tool for integrating and harmonizing river datasets from multiple sources.
 
 ### **How the framework works**
 <hr style="border: 1px solid black; margin: 0;">  
