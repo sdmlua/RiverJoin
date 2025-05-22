@@ -45,6 +45,11 @@ Overall, all necessary modifications have been clearly indicated with [Replace/R
 
 We have also provided example data [here](https://drive.google.com/drive/folders/1Grnoz6cY6uj9FFez9bLrr0Qk9t2gn0xO?usp=sharing). After downloading the data, users only need to specify the paths to the example data on their computer in the JN file and run it to obtain the results shown in Fig. 1.
 
+### **Citing This Framework**
+<hr style="border: 1px solid black; margin: 0;">  
+
+Yixian Chen, Anupal Baruah, Dipsikha Devi, Sagy Cohen. Merging Remote Sensing Derived River Slope Datasets with High-Resolution Hydrofabrics for the United States. Authorea. May 15, 2025. DOI: 10.22541/au.174733764.47269767/v1
+
 ### **Acknowledgements**
 <hr style="border: 1px solid black; margin: 0;">  
 
