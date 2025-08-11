@@ -1,4 +1,4 @@
-# Framework for Spatially Joining NOAA OWP HAND-FIM Hydrofabric Flowlines with SWORD Flowlines 
+# Framework for Spatially Joining River Flowlines from Different Datasets for Data Bitranslation 
 <hr style="border: 1px solid black; margin: 0;">  
 
 ### **River Flowlines Spatial Join (RiverJoin)**
@@ -6,44 +6,47 @@
 
 | | |
 | --- | --- |
-| <a href="https://sdml.ua.edu"><img src="https://sdml.ua.edu/wp-content/uploads/2023/01/SDML_logo_Sq_grey.png" alt="SDML Logo" width="1000"></a> | The recently developed global ICESat-2 River Surface Slope (IRIS) dataset utilizes the Surface Water and Ocean Topography (SWOT) River Database (SWORD) flowlines to carry its data. **RiverJoin** was originally developed to align the reach flowlines between the NOAA OWP HAND-FIM Hydrofabric (FIM HF) and the IRIS dataset, aiming to improve river slope data in FIM HF. To achieve this, **RiverJoin** performs a spatial join that addresses differences in flowline sources and integrates IRIS data into FIM HF. It can also spatially join any two linear river features from different sources, provided that there are fields indicating river connectivity (e.g., a unique reach identifier and its corresponding downstream reach), with modifications of a few fields to adapt to specific cases. This is developed under the Surface Dynamics Modeling Lab (SDML) as part of a project funded by the Cooperative Institute for Research to Operations in Hydrology (CIROH). |
+| <a href="https://sdml.ua.edu"><img src="https://sdml.ua.edu/wp-content/uploads/2023/01/SDML_logo_Sq_grey.png" alt="SDML Logo" width="1000"></a> | **RiverJoin** performs a spatial join that addresses differences in flowlines from different datasets (e.g. different flowline densities, the spatial offset) and bi-transfer data, carried by the flowlines, between the datasets. It can  spatially join any two linear river features from different sources, provided that there are fields indicating river connectivity (e.g., a unique reach identifier and its corresponding downstream reach).
 
+**RiverJoin** was originally developed to align the reach flowlines between the NOAA OWP HAND-FIM Hydrofabric (FIM HF) and the ICESat-2 River Surface Slope (IRIS) dataset that uses the Surface Water and Ocean Topography (SWOT) River Database (SWORD) flowlines to carry its data, aiming to improve river slope data in FIM HF.
 
-### **Background**
+**RiverJoin** is implemented as a pure-Python Jupyter notebook. Users only need to set a few fields and parameters to apply the framework to their own datasets. The framework requires only flowline geometries and basic connectivity fields—no auxiliary data—and is reproducible and adaptable across regions and datasets. We have successfully tested joins between FIM HF and SWORD, FIM HF and GEOGLOWS (Group on Earth Observation Global Water Sustainability), and SWORD and GEOGLOWS. We are currently testing joins between SWORD and MERIT Basins (Multi-Error-Removed Improved Terrain).
+
+### How the framework works -- the case of joining FIM HF and SWORD
 <hr style="border: 1px solid black; margin: 0;">  
 
-The NOAA OWP operational Flood Inundation Mapping (FIM) forecasting framework uses the NHDPlusHR DEM to calculate slope as Manning’s equation parameter for compiling the Synthetic Rating Curves (SRC). The SRCs translate the National Water Model streamflow forecasts into stage and inundation extent at river reach scale nationwide using the Height Above Nearest Drainage approach (referred to as NOAA OWP HAND-FIM) to warn communities of potential floods. River slope is asserted to be a major source of uncertainty there. The recently developed global IRIS dataset, known for its accuracy, holds potential for improvements for this. To leverage this potential, we developed **RiverJoin**, a spatial joining approach that aligns the reaches between FIM HF and IRIS, addressing differences in reach flowline sources. This resulted in the integration of IRIS river slopes into the spatially corresponding FIM HF main-stream reaches.
+The major steps in this framework are shown in Fig. 1.
 
-Additionally, **RiverJoin** is flexible to spatially join any two river flowline datasets, provided either includes connectivity fields, i.e., the current flowline identifier and the downstream identifier. This makes it a valuable tool for integrating and harmonizing river datasets from multiple sources.
+**Step 1: Initial Searching Using a Buffer Zone** (Fig. 1a)
 
-### **How the framework works**
-<hr style="border: 1px solid black; margin: 0;">  
+>A 100 m buffer is drawn around each SWORD flowline. Any FIM HF flowline whose midpoint falls within that buffer is selected. This helps exclude small nearby tributaries and ensures that about half the FIM HF flowline aligns with the SWORD reach.
 
-The major steps in this framework for achieving the spatial join are shown in Fig. 1.
+**Step 2: Downstream Tracing to Fill Gaps (get the initially unextracted FIM HF flowlines)** (Fig. 1b)
 
-**Step 1**: First extract FIM HF flowlines based on the SWORD flowline buffer (Fig. 1a)
+>Using the HydroID (flowline unique identifier) and NextDownID (HydroID of the next downstream flowline) fields in FIM HF, downstream tracing is applied to connect flowlines that weren’t initially captured by the buffer but are part of the same river path. This helps recover flowlines that continue downstream along the SWORD reach.
 
-**Step 2**: Trace downstream based on connectivity to get the initially unextracted FIM HF flowlines (Fig. 1b)
+**Step 3: Upstream and Missed Segments Recovery Using Transects** (Fig. 1c)
 
-**Step 3**: Extract any remaining unextracted flowlines (most are likely the most upstream ones) using short lines along and perpendicular to the SWORD flowlines (Fig. 1c)
+>To find the (likely unextracted) most upstream and missed FIM HF flowlines, perpendicular transects are generated at regular intervals along the SWORD flowlines. A FIM HF flowline is selected if it intersects with multiple transects or intersects with at least one transect and has a stream order ≥ 2. These serve as the default screening criteria, although users can customize the selection based on intersection count, stream order, or other relevant fields in the FIM HF dataset. This step ensures comprehensive coverage.
 
-**Step 4**: Combine all the extracted flowlines into a single file (Fig. 1d)
+**Step 4: Combine All Matched Flowlines** (Fig. 1d)
 
-**Step 5**: Perform a spatial join to transfer data from IRIS (which uses SWORD flowlines) to the extracted FIM HF flowlines (Fig. 1e)
+>All FIM HF flowlines identified through steps 1–3 are merged into a single layer.
 
-<img src="./images/Flowchart_SpatialJoin_mergeMap_Mac.png" alt="Flowchart" width="650" style="border: 1px solid black; padding: 1px;">
+**Step 5: Final alignment and attribute join** (Fig. 1e)
+
+>Evenly spaced points along each FIM HF flowline are used to find the nearest SWORD streamline(s). The reach_id of the most frequently matched SWORD flowline is assigned to the FIM HF attribute table. This common ID enables direct joining of IRIS slope data to FIM HF flowlines.
+
+<img src="./images/Flowchart_SpatialJoin_ForTransferSlopeFromIRIS2FIMHF.png" alt="Flowchart" width="650" style="border: 1px solid black; padding: 1px;">
 
 <em>Fig. 1. Flowchart of identifying and spatially joining FIM HF flowlines with corresponding SWORD flowlines. Middle-column sub-figures enlarge the dashed-line boxed areas in the third column.</em>
+
 ### **Tool Usage**
 <hr style="border: 1px solid black; margin: 0;">  
 
-The **RiverJoin** framework is currently available only as an ArcGIS Pro Jupyter Notebook (JN) file (RiverJoin_OpenInArcGIS.ipynb), which users can download from here and directly open and run in ArcGIS Pro (version 3.4.0 or later). The major steps mentioned above have been integrated as individual functions in the JN file. Only a few places—mainly the field names and filtering rules—require modification by users according to their own data. These sections have been marked with comments, such as [Replace/Re-define...].
+**RiverJoin** is provided as a Jupyter Notebook (RiverJoin_Python_2.0.ipynb) that you can download, open, and run. The major steps above are implemented as individual functions. Users only need to set the paths and field names for their flowlines. Other parameters—e.g., buffer distance, transect spacing and length, filters for selecting flowlines that intersect transects, and number of nodes to find the corresponding target flowline(s)—can be tuned to the data or left untouched (at their default values).
 
-The most essential modifications required from users are in the first and last code cells of the JN file. In the first cell, users need to set the paths to save the output files, while in the last cell, they must specify both the paths and the field names of their flowline data when calling the predefined functions.
-
-Overall, all necessary modifications have been clearly indicated with [Replace/Re-define...].
-
-We have also provided example data [here](https://drive.google.com/drive/folders/1Grnoz6cY6uj9FFez9bLrr0Qk9t2gn0xO?usp=sharing). After downloading the data, users only need to specify the paths to the example data on their computer in the JN file and run it to obtain the results shown in Fig. 1.
+In RiverJoin_Python_2.0.ipynb, the field parameters are preconfigured for joining the GEOGLOWS to SWORD. You can download the GEOGLOWS streamlines (VPU 715) [here](http://geoglows-v2.s3-website-us-west-2.amazonaws.com/#hydrography/vpu=715/) and the SWORD flowline GeoPackage for North America (NA) [here](https://zenodo.org/records/15299138). Then specify the local paths to both flowline layers in the notebook and run it.
 
 ### **Citing This Framework**
 <hr style="border: 1px solid black; margin: 0;">  
@@ -55,7 +58,7 @@ Yixian Chen, Anupal Baruah, Dipsikha Devi, Sagy Cohen. Merging Remote Sensing De
 
 | | |
 | --- | --- |
-| ![alt text](https://ciroh.ua.edu/wp-content/uploads/2022/08/CIROHLogo_200x200.png) | Funding for this project was provided by the National Oceanic & Atmospheric Administration (NOAA), awarded to the Cooperative Institute for Research to Operations in Hydrology (CIROH) through the NOAA Cooperative Agreement with The University of Alabama (NA22NWS4320003). |
+| ![alt text](https://ciroh.ua.edu/wp-content/uploads/2022/08/CIROHLogo_200x200.png) | This is developed under the Surface Dynamics Modeling Lab (SDML) as part of a project funded by the National Oceanic & Atmospheric Administration (NOAA), awarded to the Cooperative Institute for Research to Operations in Hydrology (CIROH) through the NOAA Cooperative Agreement with The University of Alabama (NA22NWS4320003). |
 
 ### **For More Information**
 <hr style="border: 1px solid black; margin: 0;">  
