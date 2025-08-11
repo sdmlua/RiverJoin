@@ -10,7 +10,13 @@
 
 **RiverJoin** was originally developed to align the reach flowlines between the NOAA OWP HAND-FIM Hydrofabric (FIM HF) and the ICESat-2 River Surface Slope (IRIS) dataset that uses the Surface Water and Ocean Topography (SWOT) River Database (SWORD) flowlines to carry its data, aiming to improve river slope data in FIM HF.
 
-**RiverJoin** is implemented as a pure-Python Jupyter notebook. Users only need to set a few fields and parameters to apply the framework to their own datasets. The framework requires only flowline geometries and basic connectivity fields—no auxiliary data—and is reproducible and adaptable across regions and datasets. We have successfully tested joins between FIM HF and SWORD, FIM HF and GEOGLOWS (Group on Earth Observation Global Water Sustainability), and SWORD and GEOGLOWS. We are currently testing joins between SWORD and MERIT Basins (Multi-Error-Removed Improved Terrain).
+**RiverJoin** is implemented as a pure-Python Jupyter Notebook.
+
+- Users set only a few fields and parameters to apply the framework to their datasets.
+- Requires only flowline geometries and basic connectivity fields—no auxiliary data.
+- Reproducible and adaptable across regions and datasets.
+
+We have successfully tested joins between FIM HF and SWORD, FIM HF and GEOGLOWS (Group on Earth Observation Global Water Sustainability), and SWORD and GEOGLOWS. We are currently testing joins between SWORD and MERIT (Multi-Error-Removed Improved Terrain) Basins.
 
 ### How the framework works -- the case of joining FIM HF and SWORD
 <hr style="border: 1px solid black; margin: 0;">  
@@ -29,6 +35,8 @@ The major steps in this framework are shown in Fig. 1.
 
 >To find the (likely unextracted) most upstream and missed FIM HF flowlines, perpendicular transects are generated at regular intervals along the SWORD flowlines. A FIM HF flowline is selected if it intersects with multiple transects or intersects with at least one transect and has a stream order ≥ 2. These serve as the default screening criteria, although users can customize the selection based on intersection count, stream order, or other relevant fields in the FIM HF dataset. This step ensures comprehensive coverage.
 
+>**Planned enhancement:** Enable users specify their own filter expressions based on the dataset’s fields.
+
 **Step 4: Combine All Matched Flowlines** (Fig. 1d)
 
 >All FIM HF flowlines identified through steps 1–3 are merged into a single layer.
@@ -36,6 +44,8 @@ The major steps in this framework are shown in Fig. 1.
 **Step 5: Final alignment and attribute join** (Fig. 1e)
 
 >Evenly spaced points along each FIM HF flowline are used to find the nearest SWORD streamline(s). The reach_id of the most frequently matched SWORD flowline is assigned to the FIM HF attribute table. This common ID enables direct joining of IRIS slope data to FIM HF flowlines.
+
+>**Planned enhancement:** Enforce stream-order consistency so a FIM HF flowline only matches SWORD flowlines of the same order (not n ± 1).
 
 <img src="./images/Flowchart_SpatialJoin_ForTransferSlopeFromIRIS2FIMHF.png" alt="Flowchart" width="650" style="border: 1px solid black; padding: 1px;">
 
