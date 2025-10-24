@@ -61,7 +61,7 @@ In RiverJoin_Python_2.0.ipynb, the field parameters are preconfigured for joinin
 ### **Citing This Framework**
 <hr style="border: 1px solid black; margin: 0;">  
 
-Yixian Chen, Anupal Baruah, Dipsikha Devi, Sagy Cohen. Merging Remote Sensing Derived River Slope Datasets with High-Resolution Hydrofabrics for the United States. Authorea. May 15, 2025. DOI: 10.22541/au.174733764.47269767/v1
+Chen, Y., Cohen, S., Baruah, A., Devi, D., Dhital, S., Tian, D., & Munasinghe, D. (2025). Merging Remote Sensing Derived River Slope Datasets with High-Resolution Hydrofabrics for the United States. Scientific Data, 12(1), 1657.
 
 ### **Acknowledgements**
 <hr style="border: 1px solid black; margin: 0;">  
